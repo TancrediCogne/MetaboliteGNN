@@ -24,9 +24,9 @@
     - `ontology_truth_table.csv`
     - `metabolites_infos.csv`
     - `structures.sdf` (can be downloaded at: https://hmdb.ca/downloads)
-- Process the data by running: `python3 data_processing.py structures.sdf output.csv data_folder ids.npy filtered_nodes_mad.npy smiles_quantified.csv`
+- Process the data by running: `python3 data_processing.py structures.sdf filtered_disposition_truth_table.csv data_folder ids.npy filtered_nodes_mad.npy smiles_quantified.csv`
     - `structures.sdf`: file containing all infos to build graphs (can be downloaded at: https://hmdb.ca/downloads)
-    - `output.csv`: file containing the truth table for given level 1 and "detected and quantified" ids
+    - `filtered_disposition_truth_table.csv`: file containing the truth table for given level 1 and "detected and quantified" ids
     - `data_folder`: folder where to store processed data
     - `quantified_ids.npy`: "detected and quantified" ids
     - `filtered_nodes_mad.npy`: nodes selected with MAD filtering
