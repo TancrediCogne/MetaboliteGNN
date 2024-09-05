@@ -25,12 +25,12 @@
     - `metabolites_infos.csv`
     - `structures.sdf` (can be downloaded at: https://hmdb.ca/downloads)
 - Process the data by running: `python3 data_processing.py structures.sdf filtered_disposition_truth_table.csv data_folder ids.npy filtered_nodes_mad.npy smiles_quantified.csv`
-    - `structures.sdf`: file containing all infos to build graphs (can be downloaded at: https://hmdb.ca/downloads)
-    - `filtered_disposition_truth_table.csv`: file containing the truth table for given level 1 and "detected and quantified" ids
+    - `structures.sdf`: file containing all infos to build graphs
+    - `filtered_disposition_truth_table.csv`: file containing the truth table for given level 1 and "detected and quantified" ids (can be found in 'Data' folder)
     - `data_folder`: folder where to store processed data
-    - `quantified_ids.npy`: "detected and quantified" ids
-    - `filtered_nodes_mad.npy`: nodes selected with MAD filtering
-    - `smiles_quantified.csv`: smiles of each metabolite in detected and quantified category, used to retrieve chemBERTa embeddings
+    - `quantified_ids.npy`: "detected and quantified" ids (can be found in 'Data' folder)
+    - `filtered_nodes_mad.npy`: nodes selected with MAD filtering (can be found in 'Data' folder)
+    - `smiles_quantified.csv`: smiles of each metabolite in detected and quantified category, used to retrieve chemBERTa embeddings (can be found in 'Data' folder)
     
 - This procedure will result in six files stored in the folder `processed_data_date_level_1_node`:
     - `adjacency_features.npy`: array of shape [G, 2, N] containing information on edges (from-to) (G: # of graphs)
