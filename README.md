@@ -1,5 +1,5 @@
 ## Data pre-processing
-- File needed: `hmdb_metabolites.xml`
+- File needed: `hmdb_metabolites.xml` (can be downloaded at: https://hmdb.ca/downloads)
 1. Split the xml file into multiple files by running: `python3 xml_breaker.py hmdb_metabolites.xml tag number` 
     - `hmdb_metabolites.xml`
     - `tag`: the tag name where the splits will be made (in this case: metabolite)
@@ -23,27 +23,27 @@
     - `ontology_tree.csv`
     - `ontology_truth_table.csv`
     - `metabolites_infos.csv`
-    - `structures.sdf`
-1. Extract some info (as of now in the notebook but will clean later); will produce:
+    - `structures.sdf` (can be downloaded at: https://hmdb.ca/downloads)
+1. Extract some info (as of now in the notebook but will clean later); will produce: TODO
     - `quantified_ids.npy`
     - `all terminal_nodes.npy` 
-    - `all filtered_terminal_nodes.npy` (these only contain the nodes with std >0.1)  
+    - `all filtered_terminal_nodes.npy` (these only contain the nodes that were selected with MAD filtering)  
     - `extra_info.csv`
     - `all filtered_truth_table.csv` (truth table only keeping quantified ids and terminal nodes of given level1)
-2. Process the data by running: `python3 data_processing.py structures.sdf output.csv data_folder ids.npy filtered_nodes.npy extra_info.csv`
-    - `structures.sdf`: file containing all infos to build graphs
-    - `output.csv`: file containing the truth table for given level 1 and quantified ids
+2. Process the data by running: `python3 data_processing.py structures.sdf output.csv data_folder ids.npy filtered_nodes.npy smiles_quantified.csv`
+    - `structures.sdf`: file containing all infos to build graphs (can be downloaded at: https://hmdb.ca/downloads)
+    - `output.csv`: file containing the truth table for given level 1 and "detected and quantified" ids
     - `data_folder`: folder where to store processed data
-    - `quantified_ids.npy`: quantified ids
-    - `filtered_nodes.npy`: nodes with std >0.1 (need to merge with filtered_terminal_nodes)
-    - `extra_info.csv`: extra info to use as input such as avg mol. weight 
+    - `quantified_ids.npy`: "detected and quantified" ids
+    - `filtered_nodes.npy`: nodes selected with MAD filtering
+    - `smiles_quantified.csv`: smiles of each metabolite in detected and quantified category, used to retrieve chemBERTa embeddings
     
-- This procedure will result in seven files stored in the folder `processed_data_date_level_1_node`:
+- This procedure will result in six files stored in the folder `processed_data_date_level_1_node`:
     - `adjacency_features.npy`: array of shape [G, 2, N] containing information on edges (from-to) (G: # of graphs)
     - `dataset.pt`: dataset saved as a pytorch geometric object
     - `edge_features.npy`: array of shape [G, N] containing info on type of bond
     - `filtered_outputs.csv`: contains the y_true values containing the exact same information stored in dataset.y
-    - `node_features.npy`: array of shape [G, M, P] containing 3D coordinnates + one-hot encoded atomic number for each atom
+    - `node_features.npy`: array of shape [G, M, P] containing 2D coordinnates + one-hot encoded atomic number for each atom
     - `valid_ids.npy`: contains all the ids of the metabolites used in `dataset.pt`
 
 ## Model training
@@ -57,3 +57,6 @@
     - `evolution_f1-score.png`: plot across epochs to show evolution of f1-score
     - `evolution_loss.png`: plot across epochs to show evolution of loss
     - `test_idx.npy`: list of idx of each metabolite in the test set
+ 
+## Interpretability
+- 
