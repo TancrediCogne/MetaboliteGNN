@@ -24,18 +24,12 @@
     - `ontology_truth_table.csv`
     - `metabolites_infos.csv`
     - `structures.sdf` (can be downloaded at: https://hmdb.ca/downloads)
-1. Extract some info (as of now in the notebook but will clean later); will produce: TODO
-    - `quantified_ids.npy`
-    - `all terminal_nodes.npy` 
-    - `all filtered_terminal_nodes.npy` (these only contain the nodes that were selected with MAD filtering)  
-    - `extra_info.csv`
-    - `all filtered_truth_table.csv` (truth table only keeping quantified ids and terminal nodes of given level1)
-2. Process the data by running: `python3 data_processing.py structures.sdf output.csv data_folder ids.npy filtered_nodes.npy smiles_quantified.csv`
+- Process the data by running: `python3 data_processing.py structures.sdf output.csv data_folder ids.npy filtered_nodes_mad.npy smiles_quantified.csv`
     - `structures.sdf`: file containing all infos to build graphs (can be downloaded at: https://hmdb.ca/downloads)
     - `output.csv`: file containing the truth table for given level 1 and "detected and quantified" ids
     - `data_folder`: folder where to store processed data
     - `quantified_ids.npy`: "detected and quantified" ids
-    - `filtered_nodes.npy`: nodes selected with MAD filtering
+    - `filtered_nodes_mad.npy`: nodes selected with MAD filtering
     - `smiles_quantified.csv`: smiles of each metabolite in detected and quantified category, used to retrieve chemBERTa embeddings
     
 - This procedure will result in six files stored in the folder `processed_data_date_level_1_node`:
