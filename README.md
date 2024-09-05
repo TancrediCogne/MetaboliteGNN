@@ -57,4 +57,3 @@
     - `evolution_f1-score.png`: plot across epochs to show evolution of f1-score
     - `evolution_loss.png`: plot across epochs to show evolution of loss
     - `test_idx.npy`: list of idx of each metabolite in the test set
-## Interpretability
