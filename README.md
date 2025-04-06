@@ -1,4 +1,4 @@
-### MetaboliteGNN 
+# MetaboliteGNN 
 This repository contains all the code asssociated with the project (TODO link). It allows to train multi-label classifier for metabolite function prediction based on structural information. All the processing and training steps are explained below.
 
 ## Data pre-processing
