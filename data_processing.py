@@ -62,7 +62,6 @@ def featurize_ChemBERTa(smiles_list, padding=True):
             
     return embeddings_mean.numpy()
 
-# python3 data_processing.py ../data/hmdb_data/structures.sdf ../data/preprocessed_data/filtered_truth_tables/filtered_disposition_truth_table.csv ../data/processed_data/processed_data_07_17_24_disposition ../data/preprocessed_data/quantified_ids.npy ../data/preprocessed_data/filtered_nodes/filtered_terminal_disposition_nodes_mad.npy ../data/preprocessed_data/smiles_quantified.csv
 sdf_file = sys.argv[1] # Path to sdf file containing structures
 output_file = sys.argv[2] # Path to outputs file
 saving_folder = sys.argv[3] # Path to folder where files will be saved
@@ -79,6 +78,7 @@ max_num_edges = 0  # Track the maximum number of edges among all graphs
 graph_embedding_length = 600
 
 # Initialize arrays to store information for all graphs
+accessions_array = []
 node_features_array = []
 edge_features_array = []
 adjacency_matrix_array = []
@@ -123,6 +123,7 @@ for i, mol in enumerate(mol_supplier):
                 max_num_nodes = max(max_num_nodes, num_nodes) # Update maximum number of nodes 
                 max_num_edges = max(max_num_edges, num_edges) # Update maximum number of edges 
             
+                accessions_array.append(curr_id)
                 node_features_array.append(node_features)
                 edge_features_array.append(edge_features)
                 adjacency_matrix_array.append(adjacency_matrix)
@@ -177,12 +178,13 @@ for i in range(num_graphs):
     one_hot_encoded_matrix = (curr_vector.unsqueeze(1) == possible_atoms).float() # One hot encode atomic number
     curr_graph_embedding = graph_embeddings[smiles['accession']==valid_ids[i]]
     graph_embeddings_array_padded[i, :] = curr_graph_embedding
+    curr_accession = accessions_array[i]
     
     curr_node_features_array = torch.cat([curr_node_features_array[:,1:], one_hot_encoded_matrix], dim=1)
     node_features_array_padded[i, :num_nodes,:] = curr_node_features_array
 
     # Add new graph to list of all graphs
-    all_graphs.append(Data(x= curr_node_features_array, edge_index=updated_adj, edge_attr=curr_edge_features_array,
+    all_graphs.append(Data(accession = curr_accession, x= curr_node_features_array, edge_index=updated_adj, edge_attr=curr_edge_features_array,
                            y=np.nan_to_num(curr_y.astype(bool)), graph_embedding = curr_graph_embedding))
 
 dataset = GraphDataset(all_graphs) # Convert  list of graphs into PyTorch Geometric object
@@ -200,3 +202,4 @@ filtered_output.to_csv(saving_folder + "/filtered_outputs.csv", index=False) # S
 torch.save(dataset, saving_folder + "/dataset.pt") # Save dataset as a PyTorch Geometric object
 print("Number of valid ids: ", len(valid_ids)) 
 np.save(saving_folder + "/valid_ids", valid_ids) # Save ids of all graphs
+np.save(saving_folder + "/accessions", accessions_array)
