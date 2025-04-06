@@ -7,11 +7,14 @@ This repository contains all the code asssociated with the project (TODO link). 
     - 'hmdb_metabolites.xml'
     - 'tag': the tag name where the splits will be made (in this case: metabolite)
     - 'number': the number of such tags per output file (in this case: around 2500 should work, but it might depend on the OS)
-2. Extract the tree and truth table of each smaller xml file by running: 'python3 extract_trees_and_truth_tables.py hmdb_metabolitesX.xml truth_tables trees'
+2. Extract the tree and truth table of each smaller xml file by running:
+   ```
+   python3 extract_trees_and_truth_tables.py hmdb_metabolitesX.xml truth_tables trees
+   ```
     - 'hmdb_metabolitesX.xml': the xml file from which the tree and truth table will be extracted (X represents the number of the file)
     - 'truth_tables': the path to the folder where all the truth tables will be saved
     - 'trees': the path to the folder where all the trees will be saved
-3. Merge all the trees and truth tables and extract all infos by running: 'python3 extract_all_infos.py hmdb_metabolites.xml trees truth_tables':
+4. Merge all the trees and truth tables and extract all infos by running: 'python3 extract_all_infos.py hmdb_metabolites.xml trees truth_tables':
     - 'hmdb_metabolites.xml': the xml file containing the whole database
     - 'truth_tables': the path to the folder where all the truth tables will be saved
     - 'trees': the path to the folder where all the trees will be saved
