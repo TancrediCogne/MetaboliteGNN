@@ -1,3 +1,6 @@
+### MetaboliteGNN 
+This repository contains all the code asssociated with the project (TODO link). It allows to train multi-label classifier for metabolite function prediction based on structural information. All the processing and training steps are explained below.
+
 ## Data pre-processing
 - File needed: `hmdb_metabolites.xml` (can be downloaded at: https://hmdb.ca/downloads)
 1. Split the xml file into multiple files by running: `python3 xml_breaker.py hmdb_metabolites.xml tag number` 
