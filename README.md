@@ -54,6 +54,10 @@ This repository contains all the code asssociated with the project (TODO link). 
 ## Train/test split
 - Files needed:
     - `dataset.pt`: dataset saved as a pytorch geometric object
+ - Parameters to choose:
+    - `dataset_date`: date at which the data was processed (this assumes that the processed data is in a folder named `processed_data_dataset_date`)
+    - `level1_node`: one of 'disposition', 'role', 'process', 'physiological_effect' (based on which data is being processed)
+    - `level1_node_num`: depends on which `level_1_node` was chosen (31 (disposition), 11 (role), 14 (process), 16 (physiological effect))
 - Split the data by running:
   ```
   python3 train_test_split.py
@@ -63,14 +67,21 @@ This repository contains all the code asssociated with the project (TODO link). 
     - `dataset_test.pt`: test dataset saved as a pytorch geometric object
     - `pos_weight.pt`: weight of positive examples asved as a pytorch geometric object
       
-## Model training
-- Files needed:
-    - `dataset.pt`
-    - `filtered_outputs.csv`
-    
-- This procedure will result in five files stored in the folder `model_date_level_1_node`:
+## Model training 
+- The file `model.py` is meant to train multiple models with different architectures for comparison. The file `model.ipynb` can be used to train one single model (described below)
+- Parameters to choose:
+    - `dataset_date`: date at which the data was processed (this assumes that the processed data is in a folder named `processed_data_dataset_date`)
+    - `current_date`: date at which the model is trained
+    - `level1_node`: one of 'disposition', 'role', 'process', 'physiological_effect' (based on which data is being processed)
+    - `level1_node_num`: depends on which `level_1_node` was chosen (31 (disposition), 11 (role), 14 (process), 16 (physiological effect))
+    - `chemberta`: whether to use ChemBERTa embeddings or not
+    - `node_to_keep`: name of the single-node to predict (only useful if training interpretability model)
+    - `node_to_keep_idx`: index of the single-node to predict in the output (only useful if training interpretability model)
+    - `arch`: one of 'GCN', 'GIN', 'GAT', 'baseline', 'MLP', 'interpretability' 
+- This procedure will result in six files stored in the folder `model_date_level_1_node_arch_chemberta`:
     - `best_model_wts.pt`: the best model weights to use for interpretability
-    - `evolution_accuracy.png`: plot across epochs to show evolution of accuracy
-    - `evolution_f1-score.png`: plot across epochs to show evolution of f1-score
+    - `evolution_average precision.png`: plot across epochs to show evolution of area under precision-recall curve
     - `evolution_loss.png`: plot across epochs to show evolution of loss
-    - `test_idx.npy`: list of idx of each metabolite in the test set
+    - `evolution_macro_f1-score.png`: plot across epochs to show evolution of macro f1-score
+    - `evolution_recall.png`: plot across epochs to show evolution of recall
+    - `evolution_weighted_f1-score.png`: plot across epochs to show evolution of weighted f1-score
