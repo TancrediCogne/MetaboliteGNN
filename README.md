@@ -1,5 +1,5 @@
 # MetaboliteGNN 
-This repository contains all the code asssociated with the project (TODO link). It allows to train multi-label classifier for metabolite function prediction based on structural information. All the processing and training steps are explained below. All the data (raw, pre-processed, and processed) is available on Zenodo (TODO link).
+This repository contains all the code asssociated with the project (TODO link). It allows to train multi-label classifier for metabolite function prediction based on structural information. All the processing and training steps are explained below. All the data (raw, pre-processed, and processed) is available on Zenodo (https://zenodo.org/records/15162815).
 
 ## Data pre-processing
 - File needed: `hmdb_metabolites.xml` (can be downloaded at: https://hmdb.ca/downloads)
